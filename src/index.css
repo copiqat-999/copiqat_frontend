@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+@import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+
+
+@plugin 'tailwind-scrollbar';
+
+@theme {
+  --font-montserrat: 'Montserrat', 'sans serif';
+  --color-primary: #F6BF0C;
+  --color-whyCard: #232323;
+}
+
+@layer base{
+  body {
+    @apply font-montserrat bg-black p-0 m-0 text-white
+  }
+}
+
+
+@layer components {
+  .active {
+    @apply text-primary
+  }
+}

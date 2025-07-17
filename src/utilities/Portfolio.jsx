@@ -1,0 +1,75 @@
+import { IoMdTime } from "react-icons/io";
+import { IoTriangle } from "react-icons/io5";
+import { FaMinus, FaPlus } from "react-icons/fa";
+
+const Portfolio = () => {
+  return (
+    <div className="flex flex-col gap-y-3 bg-black  w-full lg:w-[65%] ">
+      <div className="flex flex-col gap-y-0 lg:gap-y-6 bg-primary lg:bg-whyCard py-16 lg:py-4 px-12  lg:px-4 md:px-4 w-full rounded-lg justify-center lg:justify-normal">
+        {/* header div */}
+        <div className="flex flex-row items-center justify-end lg:justify-between ">
+          <h1 className="hidden lg:flex text-lg font-semibold text-white">
+            Portfolio Overview
+          </h1>
+          <span className="text-2xl text-black font-bold lg:text-primary">
+            <IoMdTime />
+          </span>
+        </div>
+
+        {/* Deposit / Withdraw */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:justify-between lg:py-4 py-0">
+          <div className="flex flex-col items-center md:items-start">
+            <h1 className="lg:hidden flex text-xl text-black font-normal">Total Balance</h1>
+            <h1 className="text-3xl font-bold text-black lg:text-primary py-2">$34,798.56</h1>
+            <div className="lg:flex hidden items-center gap-x-1.5">
+              <span className="text-sm text-green-400 font-semibold flex items-center">
+                <IoTriangle /> +5.27%
+              </span>
+              <span className="text-white text-sm">today</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center gap-x-4 py-0 lg:py-4">
+            <button className="px-4 py-3 bg-black lg:bg-primary text-primary lg:text-black font-semibold text-lg  lg:text-xl rounded-xl flex items-center gap-1">
+              <FaPlus /> Deposit
+            </button>
+            <button className="px-4 py-3 bg-primary lg:border-none border-1 border-black lg:bg-black text-black lg:text-primary font-semibold text-xl rounded-xl flex items-center gap-1 lg:border-primary">
+              <FaMinus /> Withdraw
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* Stats */}
+      <div className="flex flex-col md:flex-row  items-center justify-center md:justify-start gap-3 py-4 md:gap-6 lg:gap-8">
+        <div className="w-full flex gap-3 md:w-fit md:gap-6 lg:gap-8">
+          <div className="flex flex-col bg-whyCard py-4 px-4 md:px-6   rounded-lg items-center justify-center w-full md:w-fit">
+            <span className="text-sm  text-white">Daily P/L</span>
+            <span className="text-lg font-semibold text-green-400">
+              +$127.85
+            </span>
+          </div>
+          <div className="flex flex-col bg-whyCard py-4 px-4 md:px-6 rounded-lg items-center justify-center w-full md:w-fit">
+            <span className="text-sm  text-white">Weekly P/L</span>
+            <span className="text-lg font-semibold text-green-400">
+              +$427.85
+            </span>
+          </div>
+        </div>
+        <div className="w-full flex gap-3 md:w-fit md:gap-6 lg:gap-8">
+          <div className="flex flex-col bg-whyCard py-4 px-4 md:px-6 rounded-lg items-center justify-center w-full md:w-fit">
+            <span className="text-sm  text-white">Monthly P/L</span>
+            <span className="text-lg font-semibold text-green-400">
+              +$927.85
+            </span>
+          </div>
+          <div className="flex flex-col bg-whyCard py-4 px-4 md:px-6 rounded-lg items-center justify-center w-full md:w-fit">
+            <span className="text-sm  text-white">Active Trades</span>
+            <span className="text-lg font-bold text-white">7</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Portfolio;
