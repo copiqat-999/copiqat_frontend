@@ -2,7 +2,7 @@ import React from "react";
 
 const Action = () => {
   return (
-    <section className="container mx-auto px-2 py-6 flex items-center justify-center">
+    <section className="container mx-auto px-2 py-6 flex items-center justify-center mt-4">
       <div className="flex flex-col w-full gap-y-4 items-center justify-center text-center md:w-[400px]">
         <h1 className="text-2xl text-primary font-bold">
           Ready to start Copy Trading ?

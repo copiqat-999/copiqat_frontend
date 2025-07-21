@@ -46,7 +46,7 @@ const RootNavbar = () => {
 
       {/* buttons */}
       <div className="flex flex-row gap-1 w-fit">
-        <button className="px-3 py-2 text-sm font-semibold bg-black text-primary ">
+        <button className="px-3 py-2 text-sm font-semibold  text-primary ">
           <span className=" lg:flex text-2xl">
             <IoMdNotifications />
           </span>

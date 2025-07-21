@@ -3,6 +3,7 @@
 
 
 @import "tailwindcss";
+
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
@@ -24,6 +25,11 @@
 
 @layer components {
   .active {
-    @apply text-primary
+    @apply text-primary 
+  }
+
+  .forex {
+    width: 100%;
+    padding: 0px;
   }
 }

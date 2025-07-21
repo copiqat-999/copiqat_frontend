@@ -8,7 +8,7 @@ import { useState } from "react";
 import TradeForm from "../utilities/TradeForm";
 import AccordionTable from "../utilities/AccordionTable";
 import Table from "../utilities/Table";
-import { AdvancedChart } from "react-tradingview-embed";
+import StockChart from "../utilities/StockChart";
 
 const sampleData = [
   {
@@ -18,7 +18,6 @@ const sampleData = [
     current_price: "$160",
     pl: "+$60 (3.25%)",
     duration: "1 day",
-    
   },
   {
     asset: "Ethereum",
@@ -27,9 +26,7 @@ const sampleData = [
     current_price: "$60",
     pl: "+$60 (3.25%)",
     duration: "2 hours",
-    
   },
-  
 ];
 
 const Vault = () => {
@@ -41,11 +38,14 @@ const Vault = () => {
       {/* Navbar */}
       <RootNavbar />
       {/* Portfolio and Referral program */}
-      <div className="flex flex-col lg:flex-row w-full gap-8 items-start mb-12 ">
-        <Portfolio />
-        <Referral />
-        <div className="lg:hidden flex w-full  justify-center items-center p-0">
-          <AdvancedChart />
+      <div className="flex flex-col  w-full gap-8 items-start mb-12 ">
+        <div className="flex flex-col lg:flex-row w-full gap-8 items-start ">
+          <Portfolio />
+          <Referral />
+        </div>
+        {/* mobile view stock chart */}
+        <div className=" flex w-full h-[700px]  justify-center items-center p-0">
+          <StockChart symbol="AAPL" />
         </div>
       </div>
       {/* Table */}
@@ -75,7 +75,10 @@ const Vault = () => {
           <hr className="bg-white border-0 h-px border-gray-300" />
         </div>
         {view === "crypto" ? <CryptoTable /> : <StockCards />}
+
+        {/* Desktop view stock chart */}
       </div>
+
       {/* Trade */}
       <div className="py-8 mt-2 flex w-full gap-y-3 flex-col-reverse  lg:flex-col">
         <Trade />
@@ -116,15 +119,9 @@ const Vault = () => {
             <span className="text-sm text-black font-semibold ">
               Current Price
             </span>
-            <span className="text-sm text-black font-semibold ">
-              P/L
-            </span>
-            <span className="text-sm text-black font-semibold ">
-              Duration
-            </span>
-            <span className="text-sm text-black font-semibold ">
-              Action
-            </span>
+            <span className="text-sm text-black font-semibold ">P/L</span>
+            <span className="text-sm text-black font-semibold ">Duration</span>
+            <span className="text-sm text-black font-semibold ">Action</span>
           </div>
           <Table />
           <Table />
@@ -134,6 +131,7 @@ const Vault = () => {
           </div>
         </div>
       </div>
+      
     </section>
   );
 };
