@@ -1,10 +1,11 @@
 import logo from "../assets/logo.png";
 import { GiEntryDoor } from "react-icons/gi";
 import { IoIosPersonAdd } from "react-icons/io";
-import { Link, useLocation, NavLink } from "react-router-dom";
+import { Link, useLocation, NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const location = useLocation(); // get current location
+  const navigate = useNavigate()
 
   return (
     <nav className="flex items-center justify-between w-full py-3 mb-12">
@@ -43,14 +44,14 @@ const Navbar = () => {
 
       {/* buttons */}
       <div className="flex flex-row gap-2 w-fit">
-        <button className="px-3 py-2 text-sm font-semibold bg-black text-primary border border-primary rounded-full flex gap-x-1 items-center justify-center">
+        <button onClick={()=> navigate('auth/login')} className="px-3 py-2 text-sm font-semibold bg-black text-primary border border-primary rounded-full flex gap-x-1 items-center justify-center hover:transition-transform hover:scale-105 duration-300 cursor-pointer">
           <span className="hidden lg:flex text-lg">
             <GiEntryDoor />
           </span>
           Login
         </button>
 
-        <button className="px-3 py-2 text-sm bg-primary font-semibold text-black rounded-full flex gap-x-1 items-center justify-center">
+        <button onClick={() => navigate('auth/signup')} className="px-3 py-2 text-sm bg-primary font-semibold text-black rounded-full flex gap-x-1 items-center justify-center hover:transition-transform hover:scale-105 duration-300 cursor-pointer">
           <span className="hidden lg:flex text-lg">
             <IoIosPersonAdd />
           </span>

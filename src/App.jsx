@@ -17,6 +17,12 @@ import OverlayRouteModal from "./components/OverlayRouteModal";
 import Market from "./pages/Market";
 import About from "./pages/About";
 import Vault from "./pages/Vault";
+import Deposit from './pages/Deposit'
+import Withdraw from "./pages/Withdraw";
+import PersonalInformation from "./pages/PersonalInformation";
+import ContactInformation from "./pages/ContactInformation";
+import TradingCurrency from "./pages/TradingCurrency";
+import Declaration from './pages/Declaration'
 
 function AppContent() {
   const location = useLocation();
@@ -32,6 +38,14 @@ function AppContent() {
         <Route path="/about" element={<About />} />
         <Route path="/mirror" element={<Mirror />} />
         <Route path="/category" element={<Category />} />
+        <Route path="/deposit" element={<Deposit />} />
+        <Route path="/withdraw" element={<Withdraw />} />
+        <Route path="/kyc/personal-info" element={<PersonalInformation />} />
+        <Route path="/kyc/contact-info" element={<ContactInformation />} />
+        <Route path="/kyc/trading" element={<TradingCurrency />} />
+        <Route path="/kyc/declaration" element={<Declaration />} />
+
+        
 
         {/*  Auth routes */}
         <Route path="/auth/login" element={<Login />} />

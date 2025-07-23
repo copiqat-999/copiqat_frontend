@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import {  useState, useEffect } from "react";
 import axios from "axios";
 
 const StockCards = () => {
@@ -26,7 +26,7 @@ const StockCards = () => {
 
   return (
     <div className="mt-8 overflow-x-auto w-full px-2 md:px-3 lg:px-8 xl:px-12  scrollbar-thin scrollbar-thumb-primary scrollbar-track-whyCard">
-      {/* 🟩 Stock Cards */}
+      {/*  Stock Cards */}
       <div className="flex w-full py-4 gap-6">
         {stocks.map((stock) => (
           <div

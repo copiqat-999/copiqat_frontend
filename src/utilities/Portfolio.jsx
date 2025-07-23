@@ -1,8 +1,12 @@
 import { IoMdTime } from "react-icons/io";
 import { IoTriangle } from "react-icons/io5";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Portfolio = () => {
+  const navigate = useNavigate()
+
+
   return (
     <div className="flex flex-col gap-y-3 bg-black  w-full lg:w-[65%] ">
       <div className="flex flex-col gap-y-0 lg:gap-y-6 bg-primary lg:bg-whyCard py-16 lg:py-4 px-12  lg:px-4 md:px-4 w-full rounded-lg justify-center lg:justify-normal">
@@ -30,10 +34,10 @@ const Portfolio = () => {
           </div>
 
           <div className="flex items-center justify-center gap-x-4 py-0 lg:py-4">
-            <button className="px-4 py-3 bg-black lg:bg-primary text-primary lg:text-black font-semibold text-lg  lg:text-xl rounded-xl flex items-center gap-1">
+            <button onClick={() => navigate('/deposit')} className="px-4 py-3 bg-black lg:bg-primary text-primary lg:text-black font-semibold text-lg  lg:text-xl rounded-xl flex items-center gap-1 hover:transition-transform hover:scale-105 duration-300 cursor-pointer">
               <FaPlus /> Deposit
             </button>
-            <button className="px-4 py-3 bg-primary lg:border-none border-1 border-black lg:bg-black text-black lg:text-primary font-semibold text-xl rounded-xl flex items-center gap-1 lg:border-primary">
+            <button className="px-4 py-3 bg-primary lg:border-none border-1 border-black lg:bg-black text-black lg:text-primary font-semibold text-xl rounded-xl flex items-center gap-1 lg:border-primary hover:transition-transform hover:scale-105 duration-300 cursor-pointer">
               <FaMinus /> Withdraw
             </button>
           </div>
