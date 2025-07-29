@@ -18,12 +18,12 @@ const AccordionTable = ({ data }) => {
             onClick={() => toggleAccordion(index)}
           >
             <div className="flex w-full justify-between items-start py-2">
-              <div className="flex w-[60%] justify-between">
+              <div className="flex w-[60%] justify-between items-center">
                 <p className="font-semibold text-lg text-white">{item.asset}</p>
                 <span
                   className={`${
-                    item.type === "Buy" ? "bg-green-400" : "bg-red-500"
-                  } text-sm font-semibold text-white px-3 py-1 rounded-full`}
+                    item.type === "Buy" ? "bg-lime-500" : "bg-red-700"
+                  } text-[10px] font-semibold text-white px-3 py-1 flex items-center justify-center h-fit rounded-full`}
                 >
                   {item.type}
                 </span>
@@ -48,12 +48,12 @@ const AccordionTable = ({ data }) => {
              </div>
              <div className="w-full flex flex-col gap-y-2">
                 <span className="flex gap-x-2">
-                   P/L:  <span className="text-green-400">{item.pl}</span>
+                   P/L:  <span className="text-lime-400">{item.pl}</span>
                 </span>
                 <span>
                   Duration:  {item.duration}
                 </span>
-                <button className="text-sm font-semibold text-white px-2 py-1 rounded-lg bg-red-600 w-fit mt-2">
+                <button className="text-sm font-semibold text-white px-3 py-1 rounded-lg bg-red-700 w-fit mt-2 cursor-pointer">
                     Close
                 </button>
              </div>

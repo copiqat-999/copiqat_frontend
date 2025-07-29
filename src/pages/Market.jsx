@@ -151,7 +151,7 @@ const Market = () => {
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2.5 lg:gap-x-4 gap-y-8">
             {/* trader */}
             {traders.map((trader) => (
-              <MarketTraders traders={trader} key={trader} />
+              <MarketTraders traders={trader} key={trader.name} />
             ))}
           </div>
 

@@ -1,17 +1,15 @@
-// components/StockChart.jsx
 import { AdvancedChart } from "react-tradingview-embed";
 
-const StockChart = ({ symbol }) => {
+const CryptoChart = ({symbol}) => {
   return (
-    <div className="w-full h-full mt-6 ">
+    <div className="w-full h-screen">
       <AdvancedChart
         widgetProps={{
-          symbol: symbol, // e.g. "AAPL", "GOOGL", "MSFT", etc.
-          theme: "dark", // or "light"
-          interval: "D",
-          timezone: "Etc/UTC",
-          style: "1", // 1 = candle, 9 = bar, 3 = line, etc.
+          symbol: symbol, // ← Crypto pair symbol here
+          theme: "dark",
           locale: "en",
+          autosize: true,
+          interval: "60",
           width: "100%",
           height: "100%",
           hide_top_toolbar: true,
@@ -25,4 +23,4 @@ const StockChart = ({ symbol }) => {
   );
 };
 
-export default StockChart;
+export default CryptoChart;

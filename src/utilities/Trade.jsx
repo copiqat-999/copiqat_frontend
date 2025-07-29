@@ -1,7 +1,7 @@
 // import { useState } from "react";
 
-const Trade = () => {
-  
+const Trade = ({ setActiveTab, activeTab }) => {
+  console.log(activeTab)
   return (
     <div className="flex flex-col gap-y-6 w-full">
       <h1 className="text-xl font-bold text-white">Trade</h1>
@@ -18,20 +18,17 @@ const Trade = () => {
           <button className="hidden lg:flex min-w-[100px] w-full bg-primary lg:w-[200px] text-black font-semibold text-sm rounded-lg py-3 items-center justify-center text-center">
             Copy trade
           </button>
-
-
-          
         </div>
 
         {/*  trade options button */}
         <div className="hidden lg:flex w-full bg-whyCard rounded-lg p-0 mt-3 lg:mt-0 lg:w-[20%]">
-          <button className="bg-whyCard font-semibold text-sm py-3 w-full rounded-lg text-white">
+          <button onClick={() => setActiveTab('stock')} className={`${activeTab === 'stock' ? 'bg-primary text-black' : 'bg-whyCard text-white'}font-semibold text-sm py-3 w-full rounded-lg text-white cursor-pointer hover:transition-transform hover:border-1 hover:border-gray-600 duration-100 ease-in-out`}>
             Stock
           </button>
-          <button className="bg-primary font-semibold text-sm py-3 w-full rounded-lg text-black">
+          <button onClick={() => setActiveTab('crypto')} className={`${activeTab === 'crypto' ? 'bg-primary text-black' : 'bg-whyCard text-white'}font-semibold text-sm py-3 w-full rounded-lg text-white cursor-pointer hover:transition-transform hover:border-1 hover:border-gray-600 duration-100 ease-in-out`}>
             Crypto
           </button>
-          <button className="bg-whyCard font-semibold text-sm py-3 w-full rounded-lg text-white">
+          <button onClick={() => setActiveTab('forex')} className={`${activeTab === 'forex' ? 'bg-primary text-black' : 'bg-whyCard text-white'}font-semibold text-sm py-3 w-full rounded-lg text-white cursor-pointer hover:transition-transform hover:border-1 hover:border-gray-600 duration-100 ease-in-out`}>
             Forex
           </button>
         </div>

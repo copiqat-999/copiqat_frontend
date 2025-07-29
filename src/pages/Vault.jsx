@@ -4,11 +4,13 @@ import Referral from "../utilities/Referral";
 import Trade from "../utilities/Trade";
 import CryptoTable from "../utilities/CryptoTable";
 import StockCards from "../utilities/StockCards";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TradeForm from "../utilities/TradeForm";
 import AccordionTable from "../utilities/AccordionTable";
 import Table from "../utilities/Table";
 import StockChart from "../utilities/StockChart";
+import ForexChart from "../utilities/ForexChart";
+import CryptoChart from "../utilities/CryptoChart";
 
 const sampleData = [
   {
@@ -29,25 +31,49 @@ const sampleData = [
   },
 ];
 
+const forexPairs = ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD"];
+const stockPairs = ["AAPL", "GOOGL", "TSLA", "MSFT"];
+const cryptoPairs = ["BTC/ETH", "ETH/DOGE", "BNB/SOL"];
+
 const Vault = () => {
-  const [view, setView] = useState("crypto");
+  const [view, setView] = useState("stock");
   const [trade, setTrade] = useState("live");
+  const [activeTab, setActiveTab] = useState("forex");
+  const [selectPair, setSelectPair] = useState(forexPairs[0]);
+
+  useEffect(() => {
+    if (activeTab === "forex") {
+      setSelectPair(forexPairs[0]);
+    } else if (activeTab === "stock") {
+      setSelectPair(stockPairs[0]);
+    } else {
+      setSelectPair(cryptoPairs[0]);
+    }
+  }, [activeTab]);
 
   return (
     <section className="container mx-auto flex flex-col py-2 gap-y-4 px-2">
       {/* Navbar */}
       <RootNavbar />
+
       {/* Portfolio and Referral program */}
       <div className="flex flex-col  w-full gap-8 items-start mb-12 ">
         <div className="flex flex-col lg:flex-row w-full gap-8 items-start ">
           <Portfolio />
           <Referral />
         </div>
-        {/* mobile view stock chart */}
-        <div className=" flex w-full h-[700px]  justify-center items-center p-0">
-          <StockChart symbol="AAPL" />
+
+        <div className="flex w-full h-[700px] justify-center items-center p-0">
+          {activeTab === "forex" ? (
+            <ForexChart symbol={selectPair} />
+          ) : activeTab === "stock" ? (
+            <StockChart symbol={selectPair} />
+          ) : (
+            <CryptoChart symbol={selectPair} />
+          )}
         </div>
       </div>
+
       {/* Table */}
       <div className="flex w-full flex-col">
         <h1 className="text-xl font-bold text-white py-4">
@@ -81,8 +107,13 @@ const Vault = () => {
 
       {/* Trade */}
       <div className="py-8 mt-2 flex w-full gap-y-3 flex-col-reverse  lg:flex-col">
-        <Trade />
-        <TradeForm />
+        <Trade setActiveTab={setActiveTab} activeTab={activeTab} />
+        <TradeForm
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+          selectPair={selectPair}
+          setSelectPair={setSelectPair}
+        />
       </div>
       {/* Your trades */}
       <div className="flex flex-col px-2 md:px-3 lg:px-8 xl:px-12 gap-y-4 py-8">
@@ -110,7 +141,7 @@ const Vault = () => {
         {/* Trades div */}
         <div className="flex flex-col gap-y-3 w-full">
           {/* header element */}
-          <div className="hidden lg:grid lg:grid-cols-7 gap-2 py-4 px-2 bg-primary rounded-lg shadow-lg mb-2">
+          <div className="hidden lg:grid lg:grid-cols-7 gap-2 py-4 px-2 bg-primary rounded-lg shadow-lg mb-2 place-items-center">
             <span className="text-sm text-black font-semibold">Asset</span>
             <span className="text-sm text-black font-semibold">Type</span>
             <span className="text-sm text-black font-semibold">
@@ -131,7 +162,6 @@ const Vault = () => {
           </div>
         </div>
       </div>
-      
     </section>
   );
 };

@@ -1,12 +1,25 @@
 import { FaEye, FaEyeSlash, FaArrowLeftLong } from "react-icons/fa6";
-import { useState } from "react";
-import { countryOptions, countryData } from "../utils/countries";
+import { useEffect, useState } from "react";
+// import { countryOptions, countryData } from "../utils/countries";
 import { IoIosArrowDown } from "react-icons/io";
+import { Spinner } from "flowbite-react";
 
 const Signup = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
-  const [country, setCountry] = useState("Liberia");
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+  // const [country, setCountry] = useState("Liberia");
+
+  useEffect(() => {
+    console.log(formData);
+  });
 
   return (
     <section className="container mx-auto min-h-screen overflow-y-auto flex flex-col">
@@ -31,6 +44,9 @@ const Signup = () => {
                 </label>
                 <input
                   placeholder="Enter first name"
+                  onChange={(e) =>
+                    setFormData({ ...formData, first_name: e.target.value })
+                  }
                   className="py-3 px-4 w-full bg-whyCard hover:border-1 hover:border-primary placeholder:text-sm  focus focus:ring-0 focus:outline-0 rounded-xl"
                   type="first_name"
                   name="first_name"
@@ -48,6 +64,9 @@ const Signup = () => {
                 </label>
                 <input
                   placeholder="Enter last name"
+                  onChange={(e) =>
+                    setFormData({ ...formData, last_name: e.target.value })
+                  }
                   className="py-3 px-4 w-full bg-whyCard hover:border-1 hover:border-primary placeholder:text-sm  focus focus:ring-0 focus:outline-0 rounded-xl"
                   type="last_name"
                   name="last_name"
@@ -66,6 +85,9 @@ const Signup = () => {
               </label>
               <input
                 placeholder="Enter your email"
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="py-3 px-4 w-full bg-whyCard hover:border-1 hover:border-primary  focus focus:ring-0 focus:outline-0 rounded-xl"
                 type="email"
                 name="email"
@@ -74,7 +96,7 @@ const Signup = () => {
             </div>
 
             {/* country form */}
-            <div className="flex flex-col w-full pt-4">
+            {/* <div className="flex flex-col w-full pt-4">
               <label
                 className="text-sm font-semibold py-2 text-white"
                 htmlFor="email"
@@ -96,9 +118,9 @@ const Signup = () => {
                   size={20}
                 />
               </div>
-            </div>
+            </div> */}
             {/* phone form */}
-            <div className="flex flex-col w-full pt-4">
+            {/* <div className="flex flex-col w-full pt-4">
               <label
                 className="text-sm font-semibold py-2 text-white"
                 htmlFor="phone"
@@ -130,7 +152,7 @@ const Signup = () => {
                   id=""
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* password */}
             <div className="flex flex-col pt-4">
@@ -143,6 +165,9 @@ const Signup = () => {
               <div className="flex w-full bg-whyCard  hover:border-1 hover:border-primary rounded-xl pr-2 items-center">
                 <input
                   placeholder="Enter your password"
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   className="py-3 px-4 w-full bg-whyCard border-none outline-0  focus:ring-0 rounded-xl"
                   type={visible ? "text" : "password"}
                   name="password"
@@ -171,7 +196,6 @@ const Signup = () => {
                   )}
                 </button>
               </div>
-              
             </div>
             {/*confirm password */}
             <div className="flex flex-col py-4">
@@ -184,6 +208,9 @@ const Signup = () => {
               <div className="flex w-full bg-whyCard  hover:border-1 hover:border-primary rounded-xl pr-2 items-center">
                 <input
                   placeholder="Confirm password"
+                  onChange={(e) =>
+                    setFormData({ ...formData, password2: e.target.value })
+                  }
                   className="py-3 px-4 w-full bg-whyCard border-none outline-0  focus:ring-0 rounded-xl"
                   type={visible2 ? "text" : "password"}
                   name="password"
@@ -212,14 +239,20 @@ const Signup = () => {
                   )}
                 </button>
               </div>
-              
             </div>
 
             {/* submit button */}
             <div className="py-8">
-              <button className="w-full py-3 text-sm font-bold bg-primary text-black rounded-lg ">
-                Sign up
-              </button>
+              {loading ? (
+                <Spinner color="success" size="xl" />
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full py-3 text-sm font-bold bg-primary text-black rounded-lg "
+                >
+                  Sign up
+                </button>
+              )}
             </div>
 
             <div className="flex gap-x-2 items-center justify-center text-sm font-light py-2">

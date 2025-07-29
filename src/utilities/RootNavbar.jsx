@@ -1,7 +1,7 @@
 import logo from "../assets/logo.png";
 import { GiEntryDoor } from "react-icons/gi";
 import { IoIosPersonAdd } from "react-icons/io";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, NavLink } from "react-router-dom";
 import { IoMdNotifications } from "react-icons/io";
 import { GoPerson } from "react-icons/go";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -10,6 +10,7 @@ import DropdownMenu from "./DropdownMenu";
 const RootNavbar = () => {
   const location = useLocation(); // get current location
 
+  
   return (
     <nav className="flex items-center justify-between w-full py-3 mb-4 ">
       {/* logo */}
@@ -19,29 +20,29 @@ const RootNavbar = () => {
 
       {/* navlinks */}
       <ul className="hidden sm:hidden lg:flex items-center justify-center gap-x-6 text-sm font-semibold text-white">
-        <Link to="/">
-          <li className="text-primary">Home</li>
-        </Link>
+        <NavLink to="/">
+          <li className={`${location.pathname === '/' && ('text-primary')}`}>Home</li>
+        </NavLink>
 
-        <Link to="/mirror" state={{ backgroundLocation: location }}>
-          <li>Mirror</li>
-        </Link>
+        <NavLink to="/mirror" state={{ backgroundLocation: location }}>
+          <li className={`${location.pathname === '/mirror' && ('text-primary')}`}>Mirror</li>
+        </NavLink>
 
-        <Link to="/market">
-          <li>Market</li>
-        </Link>
+        <NavLink to="/market">
+          <li className={`${location.pathname === '/market' && ('text-primary')}`}>Market</li>
+        </NavLink>
 
-        <Link to="/category" state={{ backgroundLocation: location }}>
-          <li>Category</li>
-        </Link>
+        <NavLink to="/category" state={{ backgroundLocation: location }}>
+          <li className={`${location.pathname === '/category' && ('text-primary')}`}>Category</li>
+        </NavLink>
 
-        <Link to="/vault">
-          <li>Vault</li>
-        </Link>
+        <NavLink to="/vault">
+          <li className={`${location.pathname === '/vault' && ('text-primary')}`}>Vault</li>
+        </NavLink>
 
-        <Link to="/about">
-          <li>About Us</li>
-        </Link>
+        <NavLink to="/about">
+          <li className={`${location.pathname === '/about' && ('text-primary')}`}>About Us</li>
+        </NavLink>
       </ul>
 
       {/* buttons */}
