@@ -1,16 +1,49 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
+
+import {  useState } from "react"
 import { countryOptions } from "../utils/countries";
 import { IoIosArrowDown } from "react-icons/io";
-import person from '../assets/person.png'
+import { FaArrowRightLong } from "react-icons/fa6";
+// import person from '../assets/person.png'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const PersonalInformation = () => {
     const [country, setCountry] = useState("Ukraine");
+    const navigate = useNavigate()
+    const [formData, setFormData] = useState({
+        first_name : '',
+        last_name : '',
+        country : '',
+        date_of_birth : ''
+    })
+
+
+   
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const isFilled = Object.values(formData).every(value => value.trim() !== '');
+
+        if (isFilled) {
+        localStorage.setItem('is_personal_info_verified', 'true');
+        // navigate to verified route
+        navigate('/kyc/contact-info'); // change this to your actual route
+        } else {
+        toast.error('Please fill out all fields to complete your KYC.');
+        }
+    };
+
+    
+
    
   return (
     <section className='container mx-auto  mt-2 py-2 px-2 flex flex-col min-h-screen'>
         <div className="w-full flex justify-end py-2">
-            <img src={person} className="object-cover w-[40px]" alt="" />
+            {/* <img src={person} className="object-cover w-[40px]" alt="" /> */}
+             <button onClick={() => navigate('/vault')} className="w-fit text-lg text-primary font-semibold flex gap-4 items-center cursor-pointer">
+                Skip <FaArrowRightLong className="text-2xl"/>
+            </button>
         </div>
         <div className="flex flex-col md:flex-row gap-y-8 md:gap-y-0 md:gap-x-2 items-start justify-start">
 
@@ -18,26 +51,23 @@ const PersonalInformation = () => {
         <div className='w-full md:w-[40%] lg:w-[30%] xl:w-[30%] 2xl:w-[20%] rounded-lg bg-whyCard p-3 md:p-6 lg:p-8 flex flex-col gap-y-8'>
             <h1 className='text-primary text-xl lg:text-2xl font-bold'>Verify Profile</h1>
             <ul className="flex flex-col gap-y-8 text-lg font-semibold text-white">
-                <Link to={'/kyc/personal-info'} >
+                
                     <li className="flex gap-3 items-center">
                         <span className="text-2xl">--</span>  Personal Information
                     </li>
-                </Link>
-                <Link to={'/kyc/contact-info'} >
+                
                     <li className="flex gap-3 items-center">
                         <span className="text-2xl text-red-600">--</span>  Contact Information
                     </li>
-                </Link>
-                <Link to={'/kyc/trading'} >
+                
                     <li className="flex gap-3 items-center">
                         <span className="text-2xl text-red-600">--</span>  Currency
                     </li>
-                </Link>
-                <Link to={'/kyc/declaration'} >
+                
                     <li className="flex gap-3 items-center">
                         <span className="text-2xl text-red-600">--</span>  Client Declaration
                     </li>
-                </Link>
+                
             </ul>
         </div>
 
@@ -78,29 +108,32 @@ const PersonalInformation = () => {
                 <div className="flex flex-col md:flex-row gap-y-6 lg:gap-y-0 md:gap-x-2 lg:gap-x-4">
                     <div className="flex flex-col gap-2 w-full">
                         <label className="text-sm font-semibold" htmlFor="first name">First Name</label>
-                        <input placeholder="Enter first name" className="w-full px-3 py-2 text-sm text-white font-normal bg-deposit/25 rounded-lg border-none focus-within:ring-1  focus:ring-primary focus:outline-none" type="text" name="first name" id="" />
+                        <input onChange={(e) => setFormData((prev) => ({...prev, first_name : e.target.value}))} placeholder="Enter first name" className="w-full px-3 py-2 text-sm text-white font-normal bg-deposit/25 rounded-lg border-none focus-within:ring-1  focus:ring-primary focus:outline-none" type="text" name="first name" id="" />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label className="text-sm font-semibold" htmlFor="last name">Last Name</label>
-                        <input placeholder="Enter last name" className="w-full px-3 py-2 text-sm text-white font-normal bg-deposit/25 rounded-lg border-none focus-within:ring-1  focus:ring-primary focus:outline-none" type="text" name="first name" id="" />
+                        <input onChange={(e) => setFormData((prev) => ({...prev, last_name : e.target.value}))} placeholder="Enter last name" className="w-full px-3 py-2 text-sm text-white font-normal bg-deposit/25 rounded-lg border-none focus-within:ring-1  focus:ring-primary focus:outline-none" type="text" name="first name" id="" />
                     </div>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-y-6 lg:gap-y-0 md:gap-x-2 lg:gap-x-4">
                     <div className="flex flex-col gap-2 w-full">
                         <label className="text-sm font-semibold" htmlFor="first name">Date of birth</label>
-                        <input  placeholder="Enter first name" className="w-full px-3 py-2 text-sm text-white font-normal bg-deposit/25 rounded-lg border-none focus-within:ring-1  focus:ring-primary focus:outline-none" type='date' name="first name" id="" />
+                        <input onChange={(e) => setFormData((prev) => ({...prev, date_of_birth : e.target.value}))}  placeholder="Enter first name" className="w-full px-3 py-2 text-sm text-white font-normal bg-deposit/25 rounded-lg border-none focus-within:ring-1  focus:ring-primary focus:outline-none" type='date' name="first name" id="" />
                     </div>
                     <div className="flex flex-col gap-2 w-full">
                         <label className="text-sm font-semibold" htmlFor="last name">Country</label>
                         <div className="relative flex w-full ">
                             <select
                                 value={country}
-                                onChange={(e) => setCountry(e.target.value)}
+                                onChange={(e) => {
+                                    setFormData((prev) => ({ ...prev, country: e.target.value }));
+                                    setCountry(e.target.value);
+                                }}
                                 className="w-full border-none rounded-lg bg-deposit/25 flex items-start justify-start px-3 text-sm text-gray-400 font-normal py-2 focus:outline-none focus:ring-1 focus:ring-primary appearance-none pr-8 "
                             >
                                 {countryOptions.map((countries) => (
-                                <option value={countries.label}>{countries.label}</option>
+                                <option key={countries.label} value={countries.label}>{countries.label}</option>
                                 ))}
                             </select>
                             <IoIosArrowDown
@@ -112,10 +145,10 @@ const PersonalInformation = () => {
                 </div>
 
                 <div className="flex flex-row gap-x-4 md:gap-x-6 lg:gap-x-8 py-2 w-full">
-                    <button className="w-full py-3 rounded-lg border-1 border-primary bg-black text-primary text-sm font-semibold hover:transition-transform hover:scale-105 duration-300">
+                    <button onClick={() => navigate('/')} className="w-full py-3 rounded-lg border-1 border-primary bg-black text-primary text-sm font-semibold hover:transition-transform hover:scale-105 duration-300">
                         Skip
                     </button>
-                    <button className="w-full py-3 bg-primary text-black text-sm font-semibold rounded-lg hover:transition-transform hover:scale-105 duration-300">
+                    <button onClick={handleSubmit} className="w-full py-3 bg-primary text-black text-sm font-semibold rounded-lg hover:transition-transform hover:scale-105 duration-300">
                         Continue
                     </button>
                 </div>

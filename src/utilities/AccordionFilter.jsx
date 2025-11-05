@@ -1,33 +1,8 @@
 import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { Spinner } from "flowbite-react";
-import api from "../utils/api";
-import { toast } from "react-toastify";
 
-const AccordionTable = ({ data, refreshDashboard, refreshTrades }) => {
+const AccordionFilter = ({ data }) => {
   const [openIndex, setOpenIndex] = useState(null);
-  const [closingTradeId, setClosingTradeId] = useState(null);
-  const [errors, setErrors] = useState({});
-
-  const handleClose = async (trade_id) => {
-    setClosingTradeId(trade_id);
-    const url = `${
-      import.meta.env.VITE_API_BASE_URL
-    }/api/trades/${trade_id}/close/`;
-
-    try {
-      const response = await api.post(url);
-      console.log(response);
-      toast.success("Trade sucessfuly closed");
-      refreshDashboard(); // refresh dashboard again
-      refreshTrades(); // ⬅ Fetch trades again so table updates
-    } catch (error) {
-      console.log(error.response);
-      setErrors(error.response?.data || {});
-    } finally {
-      setClosingTradeId(null);
-    }
-  };
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -44,7 +19,6 @@ const AccordionTable = ({ data, refreshDashboard, refreshTrades }) => {
       </div>
     );
   }
-
   return (
     <div className="space-y-4 lg:hidden">
       {data.map((item, index) => (
@@ -95,16 +69,9 @@ const AccordionTable = ({ data, refreshDashboard, refreshTrades }) => {
                   </span>
                 </span>
                 <span>Duration: {item.duration}</span>
-                {closingTradeId === item.id ? (
-                  <Spinner size="sm" color="warning" />
-                ) : (
-                  <button
-                    onClick={() => handleClose(item.id)}
-                    className={`text-sm w-fit px-4 py-2 text-white rounded-xl cursor-pointer hover:transition-transform hover:scale-105 duration-300 font-semibold bg-red-700 `}
-                  >
-                    Close
-                  </button>
-                )}
+                <div className="flex gap-2">
+                  <span>Status:</span><span>{item.trade_status}</span>
+                </div>
               </div>
             </div>
           )}
@@ -114,4 +81,4 @@ const AccordionTable = ({ data, refreshDashboard, refreshTrades }) => {
   );
 };
 
-export default AccordionTable;
+export default AccordionFilter;

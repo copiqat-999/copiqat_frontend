@@ -1,35 +1,7 @@
-import { useState } from "react";
-import api from "../utils/api";
-import { Spinner } from "flowbite-react";
-import { toast } from "react-toastify";
-
-const Table = ({ trade, refreshTrades, refreshDashboard }) => {
+const FilterTable = ({ trade }) => {
   function isNegative(number) {
     return String(number).startsWith("-");
   }
-
-  const [closingTradeId, setClosingTradeId] = useState(null);
-  const [errors, setErrors] = useState({});
-
-  const handleClose = async (trade_id) => {
-    setClosingTradeId(trade_id);
-    const url = `${
-      import.meta.env.VITE_API_BASE_URL
-    }/api/trades/${trade_id}/close/`;
-
-    try {
-      const response = await api.post(url);
-      console.log(response);
-      toast.success("Trade sucessfuly closed");
-      refreshDashboard(); // refresh dashboard again
-      refreshTrades(); // ⬅ Fetch trades again so table updates
-    } catch (error) {
-      console.log(error.response);
-      setErrors(error.response?.data || {});
-    } finally {
-      setClosingTradeId(null);
-    }
-  };
 
   if (!trade || trade.length === 0) {
     return (
@@ -40,7 +12,7 @@ const Table = ({ trade, refreshTrades, refreshDashboard }) => {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="hidden lg:flex flex-col gap-3">
       <div className="hidden lg:grid lg:grid-cols-7 gap-2 py-4 px-2 bg-primary rounded-lg shadow-lg mb-2 place-items-center">
         <span className="text-sm text-black font-semibold">Asset</span>
         <span className="text-sm text-black font-semibold">Type</span>
@@ -48,7 +20,7 @@ const Table = ({ trade, refreshTrades, refreshDashboard }) => {
         <span className="text-sm text-black font-semibold ">Current Price</span>
         <span className="text-sm text-black font-semibold ">P/L</span>
         <span className="text-sm text-black font-semibold ">Duration</span>
-        <span className="text-sm text-black font-semibold ">Action</span>
+        <span className="text-sm text-black font-semibold ">Status</span>
       </div>
       {trade.map((trade_data) => (
         <div
@@ -77,20 +49,11 @@ const Table = ({ trade, refreshTrades, refreshDashboard }) => {
             </span>
           </span>
           <span className="text-sm text-white">{trade_data.duration}</span>
-          {closingTradeId === trade_data.id ? (
-            <Spinner size="sm" color="warning" />
-          ) : (
-            <button
-              onClick={() => handleClose(trade_data.id)}
-              className={`text-sm w-fit px-4 py-2 text-white rounded-xl cursor-pointer hover:transition-transform hover:scale-105 duration-300 font-semibold bg-red-700 `}
-            >
-              Close
-            </button>
-          )}
+          <span className="text-sm text-white">{trade_data.trade_status}</span>
         </div>
       ))}
     </div>
   );
 };
 
-export default Table;
+export default FilterTable;

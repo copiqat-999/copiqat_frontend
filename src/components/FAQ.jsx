@@ -40,7 +40,7 @@ const FAQ = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-8 place-content-center h-fit  w-full">
           {faq.map((items) => (
-            <div className="w-full  divide-y divide-black rounded-xl bg-whyCard flex flex-col justify-center  h-fit ">
+            <div key={items.header} className="w-full  divide-y divide-black rounded-xl bg-whyCard flex flex-col justify-center  h-fit ">
               <Disclosure as="div" className="px-6 py-8" defaultOpen={false}>
                 <DisclosureButton className="group flex w-full items-start justify-between  shadow-2xl">
                   <span className="md:text-lg px-2 text-sm text-start  font-bold text-primary group-data-hover:text-primary/80">

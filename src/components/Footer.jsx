@@ -16,20 +16,20 @@ const Footer = () => {
         <div className="flex flex-row g py-6 items-start justify-around w-full md:justify-around">
           <div className="text-sm text-white font-normal flex flex-col gap-y-4 w-fit">
             <h3 className="text-xl font-semibold text-primary">Platform</h3>
-            <span>Features</span>
-            <span>Security</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Features</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Security</span>
           </div>
-          <div className="text-sm text-white font-normal flex flex-col gap-y-4 w-fit">
+          <div className="text-sm text-white font-normal flex flex-col gap-y-4 w-fit ">
             <h3 className="text-xl font-semibold text-primary">Resources</h3>
-            <span>Documentation</span>
-            <span>Tutorials</span>
-            <span>Blog</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Documentation</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Tutorials</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Blog</span>
           </div>
           <div className="text-sm text-white font-normal flex flex-col gap-y-4 w-fit">
             <h3 className="text-xl font-semibold text-primary">Support</h3>
-            <span>Help Center</span>
-            <span>Contact Us</span>
-            <span>Legal</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Help Center</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Contact Us</span>
+            <span className="hover:text-primary cursor-pointer transition-colors duration-300">Legal</span>
           </div>
         </div>
       </div>

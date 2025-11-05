@@ -4,166 +4,290 @@ import Referral from "../utilities/Referral";
 import Trade from "../utilities/Trade";
 import CryptoTable from "../utilities/CryptoTable";
 import StockCards from "../utilities/StockCards";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import TradeForm from "../utilities/TradeForm";
 import AccordionTable from "../utilities/AccordionTable";
-import Table from "../utilities/Table";
 import StockChart from "../utilities/StockChart";
 import ForexChart from "../utilities/ForexChart";
 import CryptoChart from "../utilities/CryptoChart";
-
-const sampleData = [
-  {
-    asset: "Bitcoin",
-    entry_price: "$250",
-    type: "Buy",
-    current_price: "$160",
-    pl: "+$60 (3.25%)",
-    duration: "1 day",
-  },
-  {
-    asset: "Ethereum",
-    entry_price: "$50",
-    type: "Sell",
-    current_price: "$60",
-    pl: "+$60 (3.25%)",
-    duration: "2 hours",
-  },
-];
+import api from "../utils/api";
+import { toast } from "react-toastify";
+import Table from "../utilities/Table";
+import FilterTable from "../utilities/FilterTable";
+import AccordionFilter from "../utilities/AccordionFilter";
 
 const forexPairs = ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD"];
 const stockPairs = ["AAPL", "GOOGL", "TSLA", "MSFT"];
 const cryptoPairs = ["BTC/ETH", "ETH/DOGE", "BNB/SOL"];
 
 const Vault = () => {
-  const [view, setView] = useState("stock");
-  const [trade, setTrade] = useState("live");
-  const [activeTab, setActiveTab] = useState("forex");
-  const [selectPair, setSelectPair] = useState(forexPairs[0]);
+    const [view, setView] = useState("stock");
+    const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (activeTab === "forex") {
-      setSelectPair(forexPairs[0]);
-    } else if (activeTab === "stock") {
-      setSelectPair(stockPairs[0]);
-    } else {
-      setSelectPair(cryptoPairs[0]);
-    }
-  }, [activeTab]);
+    // Loading / Errors
+    const [loading, setLoading] = useState({
+        dashboard: false,
+        trades: false,
+        buy: false,
+        sell: false,
+    });
+    const [trade, setTrade] = useState("live");
+    const [activeTab, setActiveTab] = useState("stock");
+    const [selectPair, setSelectPair] = useState(stockPairs[0]);
+    const [dashboardData, setDashboardData] = useState(null);
+    // const [selectTime, setSelectTime] = useState("1 Hour");
+    const [tradeForm, setTradeForm] = useState({
+        asset: stockPairs[0],
+        trade_type: "",
+        duration: "1 Hour",
+        take_profit: "",
+        stop_loss: "",
+    });
+    const [userTrades, setUserTrades] = useState([]);
 
-  return (
-    <section className="container mx-auto flex flex-col py-2 gap-y-4 px-2">
-      {/* Navbar */}
-      <RootNavbar />
+    // API Endpoints
+    const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
-      {/* Portfolio and Referral program */}
-      <div className="flex flex-col  w-full gap-8 items-start mb-12 ">
-        <div className="flex flex-col lg:flex-row w-full gap-8 items-start ">
-          <Portfolio />
-          <Referral />
-        </div>
+    const ENDPOINTS = {
+        dashboard: `${API_BASE}/api/dashboard`,
+        listTrades: `${API_BASE}/api/list_trade`,
+        createTrade: `${API_BASE}/api/trade/`,
+        filterTrade: `${API_BASE}/api/list_trade?trade_status__iexact=open`,
+        filterCloseTrade: `${API_BASE}/api/list_trade?trade_status__iexact=closed`,
+    };
 
-        <div className="flex w-full h-[700px] justify-center items-center p-0">
-          {activeTab === "forex" ? (
-            <ForexChart symbol={selectPair} />
-          ) : activeTab === "stock" ? (
-            <StockChart symbol={selectPair} />
-          ) : (
-            <CryptoChart symbol={selectPair} />
-          )}
-        </div>
-      </div>
+    const [filterUrl, setFilterUrl] = useState(`${ENDPOINTS.filterTrade}`);
 
-      {/* Table */}
-      <div className="flex w-full flex-col">
-        <h1 className="text-xl font-bold text-white py-4">
-          Top Trading Assets
-        </h1>
-        <div className="flex flex-col gap-2 w-full px-2 md:px-3 lg:px-8 xl:px-12 ">
-          <div className="flex ">
-            <button
-              onClick={() => setView("stock")}
-              className={`w-fit ${
-                view === "stock" ? "border-b-2 border-primary" : ""
-              }   bg-black text-white text-sm px-3 py-2 transition-colors hover:text-primary duration-200 cursor-pointer`}
-            >
-              Stock
-            </button>
-            <button
-              onClick={() => setView("crypto")}
-              className={`w-fit ${
-                view === "crypto" ? "border-b-2 border-primary" : ""
-              }   bg-black text-white text-sm px-3 py-2 transition-colors hover:text-primary duration-200 cursor-pointer`}
-            >
-              Crypto
-            </button>
-          </div>
-          <hr className="bg-white border-0 h-px border-gray-300" />
-        </div>
-        {view === "crypto" ? <CryptoTable /> : <StockCards />}
+    /** ===============================
+     * Fetch Functions
+     *
+     * =============================== */
 
-        {/* Desktop view stock chart */}
-      </div>
+    const fetchTrades = async (url = filterUrl) => {
+        console.log("i am fetching the trades");
+        setLoading((prev) => ({ ...prev, trades: true }));
+        try {
+            const { data } = await api.get(url);
+            console.log(data);
+            setUserTrades(data);
+        } catch (error) {
+            console.error(error.response);
+            setErrors(error.response?.data || {});
+        } finally {
+            setLoading((prev) => ({ ...prev, trades: false }));
+        }
+    };
 
-      {/* Trade */}
-      <div className="py-8 mt-2 flex w-full gap-y-3 flex-col-reverse  lg:flex-col">
-        <Trade setActiveTab={setActiveTab} activeTab={activeTab} />
-        <TradeForm
-          setActiveTab={setActiveTab}
-          activeTab={activeTab}
-          selectPair={selectPair}
-          setSelectPair={setSelectPair}
-        />
-      </div>
-      {/* Your trades */}
-      <div className="flex flex-col px-2 md:px-3 lg:px-8 xl:px-12 gap-y-4 py-8">
-        <h1 className="text-xl font-bold text-white">Your Trades</h1>
-        {/* trade buttons */}
-        <div>
-          <button
-            onClick={() => setTrade("live")}
-            className={`w-fit ${
-              trade === "live" ? "border-b-2 border-primary" : ""
-            }   bg-black text-white text-sm px-3 py-2 transition-colors hover:text-primary duration-200 cursor-pointer`}
-          >
-            Live
-          </button>
-          <button
-            onClick={() => setTrade("closed")}
-            className={`w-fit ${
-              trade === "closed" ? "border-b-2 border-primary" : ""
-            }   bg-black text-white text-sm px-3 py-2 transition-colors hover:text-primary duration-200 cursor-pointer`}
-          >
-            Closed
-          </button>
-        </div>
-        <hr className="bg-white border-0 h-px border-gray-300" />
-        {/* Trades div */}
-        <div className="flex flex-col gap-y-3 w-full">
-          {/* header element */}
-          <div className="hidden lg:grid lg:grid-cols-7 gap-2 py-4 px-2 bg-primary rounded-lg shadow-lg mb-2 place-items-center">
-            <span className="text-sm text-black font-semibold">Asset</span>
-            <span className="text-sm text-black font-semibold">Type</span>
-            <span className="text-sm text-black font-semibold">
-              Entry Price
-            </span>
-            <span className="text-sm text-black font-semibold ">
-              Current Price
-            </span>
-            <span className="text-sm text-black font-semibold ">P/L</span>
-            <span className="text-sm text-black font-semibold ">Duration</span>
-            <span className="text-sm text-black font-semibold ">Action</span>
-          </div>
-          <Table />
-          <Table />
-          <Table />
-          <div className="w-full lg:hidden">
-            <AccordionTable data={sampleData} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+    // Fetch Dashboard Data
+    const fetchDashboard = async () => {
+        setLoading((prev) => ({ ...prev, dashboard: true }));
+        try {
+            const { data } = await api.get(ENDPOINTS.dashboard);
+            setDashboardData(data);
+        } catch (error) {
+            console.error(error.response);
+            setErrors(error.response?.data || {});
+        } finally {
+            setLoading((prev) => ({ ...prev, dashboard: false }));
+        }
+    };
+
+    // Load dashboard and fetch trades on page mount
+    useEffect(() => {
+        fetchDashboard();
+    }, []);
+
+    useEffect(() => {
+        fetchTrades(filterUrl);
+        const interval = setInterval(() => fetchTrades(filterUrl), 60000);
+        return () => clearInterval(interval);
+    }, [filterUrl]);
+
+    /** ===============================
+     * Create Trade
+     * =============================== */
+    // Create Trade
+    const createTrade = async (formData) => {
+        const isBuy = formData.trade_type === "buy";
+
+        setLoading((prev) => ({
+            ...prev,
+            buy: isBuy,
+            sell: !isBuy,
+        }));
+
+        try {
+            await api.post(ENDPOINTS.createTrade, formData, {
+                headers: { "Content-Type": "application/json" },
+            });
+
+            toast.success("Trade successfully initiated");
+            fetchDashboard(); // fetch dashboard data so the count will be updated
+
+            // Refresh trades immediately after creation
+            fetchTrades();
+        } catch (error) {
+            console.error(error.response);
+            setErrors(error.response?.data || {});
+        } finally {
+            setLoading((prev) => ({
+                ...prev,
+                buy: false,
+                sell: false,
+            }));
+        }
+    };
+
+    /** ===============================
+     * Effects
+     * =============================== */
+    useEffect(() => {
+        // Change pair based on tab
+        let newPair =
+            activeTab === "forex"
+                ? forexPairs[0]
+                : activeTab === "stock"
+                ? stockPairs[0]
+                : cryptoPairs[0];
+
+        setSelectPair((prev) => (prev !== newPair ? newPair : prev));
+    }, [activeTab]);
+
+    /** ===============================
+     * Memoized Chart
+     * =============================== */
+    const ChartComponent = useMemo(() => {
+        if (activeTab === "forex") return <ForexChart symbol={selectPair} />;
+        if (activeTab === "stock") return <StockChart symbol={selectPair} />;
+        return <CryptoChart symbol={selectPair} />;
+    }, [activeTab, selectPair]);
+
+    return (
+        <section className="container mx-auto flex flex-col py-2 gap-y-4 px-2">
+            <RootNavbar />
+
+            {/* Portfolio & Referral */}
+            <div className="flex flex-col w-full gap-8 items-start mb-12">
+                <div className="flex flex-col lg:flex-row w-full gap-8 items-start">
+                    <Portfolio dashboardData={dashboardData} />
+                    <Referral dashboardData={dashboardData} />
+                </div>
+
+                <div className="flex w-full h-[700px] justify-center items-center">
+                    {ChartComponent}
+                </div>
+            </div>
+
+            {/* Top Trading Assets */}
+            <div className="flex w-full flex-col">
+                <h1 className="text-xl font-bold text-white py-4">
+                    Top Trading Assets
+                </h1>
+                <div className="flex flex-col gap-2 w-full px-2 md:px-3 lg:px-8 xl:px-12">
+                    <div className="flex">
+                        <button
+                            onClick={() => setView("stock")}
+                            className={`w-fit ${
+                                view === "stock"
+                                    ? "border-b-2 border-primary"
+                                    : ""
+                            } bg-black text-white text-sm px-3 py-2 hover:text-primary`}
+                        >
+                            Stock
+                        </button>
+                        <button
+                            onClick={() => setView("crypto")}
+                            className={`w-fit ${
+                                view === "crypto"
+                                    ? "border-b-2 border-primary"
+                                    : ""
+                            } bg-black text-white text-sm px-3 py-2 hover:text-primary`}
+                        >
+                            Crypto
+                        </button>
+                    </div>
+                    <hr className="bg-white border-0 h-px" />
+                </div>
+                {view === "crypto" ? <CryptoTable /> : <StockCards />}
+            </div>
+
+            {/* Trade */}
+            <div className="py-8 mt-2 flex w-full gap-y-3 flex-col-reverse lg:flex-col">
+                <Trade
+                    setActiveTab={setActiveTab}
+                    activeTab={activeTab}
+                    createTrade={createTrade}
+                    setTradeForm={setTradeForm}
+                    buyLoading={loading.buy}
+                    sellLoading={loading.sell}
+                    tradeForm={tradeForm}
+                />
+                <TradeForm
+                    setActiveTab={setActiveTab}
+                    activeTab={activeTab}
+                    selectPair={selectPair}
+                    setSelectPair={setSelectPair}
+                    setTradeForm={setTradeForm}
+                    errors={errors}
+                />
+            </div>
+
+            {/* Your Trades */}
+            <div className="flex flex-col px-2 md:px-3 lg:px-8 xl:px-12 gap-y-4 py-8">
+                <h1 className="text-xl font-bold text-white">Your Trades</h1>
+                <div>
+                    <button
+                        onClick={() => setFilterUrl(ENDPOINTS.filterTrade)}
+                        className={`w-fit ${
+                            filterUrl === ENDPOINTS.filterTrade
+                                ? "border-b-2 border-primary"
+                                : ""
+                        } bg-black text-white text-sm px-3 py-2 hover:text-primary`}
+                    >
+                        Live
+                    </button>
+
+                    <button
+                        onClick={() => setFilterUrl(ENDPOINTS.filterCloseTrade)}
+                        className={`w-fit ${
+                            filterUrl === ENDPOINTS.filterCloseTrade
+                                ? "border-b-2 border-primary"
+                                : ""
+                        } bg-black text-white text-sm px-3 py-2 hover:text-primary`}
+                    >
+                        Closed
+                    </button>
+                </div>
+                <hr className="bg-white border-0 h-px" />
+
+                {/* Desktop view */}
+                <div className="w-full hidden lg:flex flex-col">
+                    {filterUrl === ENDPOINTS.filterTrade ? (
+                        <Table
+                            refreshDashboard={fetchDashboard}
+                            refreshTrades={fetchTrades}
+                            trade={userTrades}
+                        />
+                    ) : (
+                        <FilterTable trade={userTrades} />
+                    )}
+                </div>
+
+                {/* Mobile View */}
+                <div className="w-full lg:hidden">
+                    {filterUrl === ENDPOINTS.filterTrade ? (
+                        <AccordionTable
+                            data={userTrades}
+                            refreshDashboard={fetchDashboard}
+                            refreshTrades={fetchTrades}
+                        />
+                    ) : (
+                        <AccordionFilter data={userTrades} />
+                    )}
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default Vault;

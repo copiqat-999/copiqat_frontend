@@ -29,7 +29,7 @@ const Hero = () => {
 
       {/* Call to action button */}
       <div className="flex items-center justify-center py-3">
-        <button onClick={() => navigate('/vault')} className="text-black bg-primary rounded-xl px-8 py-3 w-fit text-sm font-semibold">
+        <button onClick={() => navigate('/vault')} className="text-black bg-primary rounded-xl px-8 py-3 w-fit text-sm font-semibold hover:transition-transform hover:scale-105 duration-300 cursor-pointer">
           Start Trading
         </button>
       </div>

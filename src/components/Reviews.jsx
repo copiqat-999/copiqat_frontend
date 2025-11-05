@@ -34,7 +34,7 @@ const Reviews = () => {
       </div>
       <div className="flex flex-col w-full gap-y-8 justify-center py-4 ">
         {reviews.map((item) => (
-          <div className={`flex w-full justify-${item.direction}`}>
+          <div key={item.review} className={`flex w-full justify-${item.direction}`}>
             <div className="flex flex-col w-[80%] md:w-[60%] justify-start bg-primary rounded-3xl py-6 px-6">
               <div className="w-8">
                 <img src={quote} className="object-cover w-full" alt="" />

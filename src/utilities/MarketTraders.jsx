@@ -1,6 +1,9 @@
 import { FaStar } from "react-icons/fa";
+import { Spinner } from "flowbite-react";
 
-const MarketTraders = ({ traders }) => {
+
+
+const MarketTraders = ({ traders, handleCopy, loading }) => {
   return (
     <div className="flex flex-col py-3 px-2 lg:py-8 lg:px-6 gap-y-2 bg-whyCard rounded-xl">
       <span className="flex gap-x-2 text-green-400 text-sm lg:text-xl">
@@ -12,7 +15,7 @@ const MarketTraders = ({ traders }) => {
       <div className="flex flex-col px-3 py-1 lg:px-8 gap-y-3 lg:py-2">
         <div className="flex justify-between w-full text-white font-semibold text-sm lg:text-xl">
           <span>Return</span>
-          <span className="text-green-400">{traders.return}%</span>
+          <span className="text-green-400">{traders.returns}%</span>
         </div>
         <div className="flex justify-between w-full text-white font-semibold text-sm lg:text-xl">
           <span>Win rate</span>
@@ -25,9 +28,17 @@ const MarketTraders = ({ traders }) => {
 
         {/* button */}
         <div className="w-full flex items-center justify-center mt-4">
-          <button className="lg:text-xl text-sm font-semibold text-black py-2  rounded-xl bg-primary w-[80%] ">
-            Copy trader
-          </button>
+          {
+            loading === traders.id ? (
+              <Spinner size="sm" color="warning" />
+            ) : (
+              <button onClick={() => handleCopy(traders.id)} className="lg:text-xl text-sm font-semibold text-black py-2  rounded-xl bg-primary w-[80%] ">
+                Copy trader
+              </button>
+            )
+          }
+
+          
         </div>
       </div>
     </div>
