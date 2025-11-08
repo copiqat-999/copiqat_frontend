@@ -5,12 +5,13 @@ import innovationImage from "../assets/image.png";
 import investImage from "../assets/invest.png";
 import Navbar from "../utilities/Navbar";
 import { useNavigate } from "react-router-dom";
+import AuthNavbar from "../utilities/AuthNavbar";
 
 const About = () => {
     const navigate = useNavigate();
     return (
         <section className="container mx-auto flex flex-col py-2 gap-y-4 px-2">
-            <Navbar />
+            <AuthNavbar />
 
             <div className="py-8 mt-2 flex flex-col w-full gap-y-8">
                 {/* innovation */}

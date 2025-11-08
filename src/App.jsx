@@ -11,7 +11,7 @@ import Login from "./AuthPages/Login";
 import Signup from "./AuthPages/Signup";
 import ActivateAccount from "./AuthPages/ActivateAccount";
 import Mirror from "./pages/Mirror";
-import Category from "./pages/Category";
+import Learn from "./pages/Learn";
 import OverlayRouteModal from "./components/OverlayRouteModal";
 import Market from "./pages/Market";
 import About from "./pages/About";
@@ -46,6 +46,7 @@ function AppContent() {
                         </ProtectedRoute>
                     }
                 />
+                
                 <Route
                     path="/vault"
                     element={
@@ -55,6 +56,7 @@ function AppContent() {
                     }
                 />
                 <Route path="/about" element={<About />} />
+                <Route path="/learn" element={<Learn />} />
                 <Route
                     path="/mirror/options-trading"
                     element={
@@ -79,14 +81,7 @@ function AppContent() {
                         </ProtectedRoute>
                     }
                 />
-                <Route
-                    path="/category"
-                    element={
-                        <ProtectedRoute>
-                            <Category />
-                        </ProtectedRoute>
-                    }
-                />
+                
                 <Route
                     path="/deposit"
                     element={
@@ -164,14 +159,7 @@ function AppContent() {
                             </OverlayRouteModal>
                         }
                     />
-                    <Route
-                        path="/category"
-                        element={
-                            <OverlayRouteModal>
-                                <Category />
-                            </OverlayRouteModal>
-                        }
-                    />
+                    
                 </Routes>
             )}
         </>

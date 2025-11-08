@@ -21,7 +21,7 @@ const stockPairs = ["AAPL", "GOOGL", "TSLA", "MSFT"];
 const cryptoPairs = ["BTC/ETH", "ETH/DOGE", "BNB/SOL"];
 
 const Vault = () => {
-    const [view, setView] = useState("stock");
+    const [view, setView] = useState("crypto");
     const [errors, setErrors] = useState({});
 
     // Loading / Errors
@@ -212,7 +212,7 @@ const Vault = () => {
             </div>
 
             {/* Trade */}
-            <div className="py-8 mt-2 flex w-full gap-y-3 flex-col-reverse lg:flex-col">
+            <div className="py-8 mt-2 flex w-full gap-y-3 flex-col-reverse ">
                 <Trade
                     setActiveTab={setActiveTab}
                     activeTab={activeTab}

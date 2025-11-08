@@ -83,3 +83,28 @@ export const optionsTradingDataParagraph2 = {
     paragraph3:
         "Control – one of the main disadvantages is the lack of control a trader will have once they begin copying an account; traders are essentially entrusting their portfolio to a stranger.",
 };
+
+
+
+export const learnData = [
+    {
+        id: 1,
+        header: "Futures Trading",
+        paragraph: "Futures trading involves buying or selling a contract that obligates you to purchase or sell an asset (like oil, gold, or Bitcoin) at a predetermined price on a future date. Instead of owning the actual asset, traders speculate on its price movement.If the price moves in their favor, they profit; if it moves against them, they lose. Futures are often used for hedging (reducing risk) or speculation (profiting from price changes) and usually involve leverage, meaning traders can control large positions with relatively small capital—making both profits and losses potentially significant."
+    },
+    {
+        id: 2,
+        header: "Stock Trading",
+        paragraph: "Stock trading involves buying and selling shares of companies on the stock market to profit from price changes. When you buy a stock, you own a small part of that company.Traders aim to buy low and sell high, taking advantage of short-term or long-term price movements. Unlike futures, stock trading doesn’t involve contracts or fixed expiration dates — you can hold your shares as long as you want. It’s generally less risky than futures trading, but profits also tend to be smaller unless large amounts of capital are invested."
+    },
+    {
+        id: 3,
+        header: "Oil and Gas Stock Trading",
+        paragraph: "Oil and gas stock trading involves buying and selling shares of companies in the energy sector — such as those that explore, produce, refine, or distribute oil and natural gas.Traders profit from changes in these companies’ stock prices, which are often influenced by global oil prices, supply and demand, geopolitical events, and economic conditions. When oil prices rise, energy company stocks usually increase in value; when prices fall, they often decline. This makes oil and gas stocks more volatile and sensitive to market news than many other sectors."
+    },
+    {
+        id: 4,
+        header: "Forex Trading - Foreign Exchange",
+        paragraph: "Forex trading (foreign exchange trading) involves buying one currency while simultaneously selling another to profit from changes in exchange rates. It’s the world’s largest and most liquid financial market, operating 24 hours a day.Traders speculate on whether a currency will strengthen or weaken against another — for example, buying EUR/USD if they expect the euro to rise against the dollar. Because forex trading often uses leverage, small price movements can lead to significant profits or losses, making it both highly liquid and high-risk."
+    }
+]

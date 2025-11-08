@@ -32,18 +32,12 @@ const Withdraw = () => {
                 <div className="w-full flex flex-col">
                     <div className="w-full flex justify-between">
                         <h3 className="text-sm font-semibold text-white">Active referral</h3>
-                        <span className="text-sm font-semibold text-white">1/2</span>
+                        
                     </div>
-                    <div className="w-full rounded-xl bg-deposit/55">
-                        <div className="w-[50%] rounded-xl bg-primary py-1.5"></div>
+                    <div className="w-full rounded-xl bg-deposit/55 py-1">
+                        {/* <div className="w-[50%] rounded-xl bg-primary py-1.5"></div> */}
                     </div>
-                    <div className="w-full mb-12 mt-8 flex justify-between">
-                        <div className="flex gap-x-1.5 lg:gap-x-5 items-center">
-                            <div className="p-2 bg-lime-400 rounded-full"><FaCheck className="lg:text-xl text-lg text-white"/></div>
-                            <span className="text-white font-normal text-sm">Daniel Harris</span>
-                        </div>
-                        <div className="bg-lime-700 text-lime-300 px-3  rounded-full text-sm font-normal flex text-center items-center"><span>Active</span></div>
-                    </div>
+                    
                 </div>
 
                 

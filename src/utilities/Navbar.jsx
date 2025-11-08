@@ -45,19 +45,17 @@ const Navbar = () => {
                         Market
                     </li>
                 </NavLink>
-
-                <NavLink
-                    to="/category"
-                    state={{ backgroundLocation: location }}
-                >
+                <NavLink to="/learn">
                     <li
                         className={`${
-                            location.pathname === "/category" && "text-primary"
+                            location.pathname === "/learn" && "text-primary"
                         }`}
                     >
-                        Category
+                        Learn
                     </li>
                 </NavLink>
+
+                
 
                 <NavLink to="/vault">
                     <li

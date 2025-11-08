@@ -1,4 +1,4 @@
-import RootNavbar from "../utilities/RootNavbar";
+import AuthNavbar from "../utilities/AuthNavbar";
 import logo from "../assets/logo.png";
 import { FaCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Mirror = () => {
     return (
         <section className="container mx-auto flex flex-col py-2 px-2 gap-y-6 ">
-            <RootNavbar />
+            <AuthNavbar />
 
             {/* content div */}
             <div className="flex flex-col w-full gap-y-2 py-4 px-12">

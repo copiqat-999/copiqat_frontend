@@ -1,4 +1,4 @@
-import RootNavbar from "../utilities/RootNavbar";
+import AuthNavbar from "../utilities/AuthNavbar";
 import { IoSearch } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
@@ -76,7 +76,7 @@ const Market = () => {
 
   return (
     <section className="container mx-auto flex flex-col py-2 gap-y-4 px-2">
-      <RootNavbar />
+      <AuthNavbar />
 
       <div className="py-8 mt-4 flex flex-col lg:px-12 w-full">
         {/* Search and filter div */}

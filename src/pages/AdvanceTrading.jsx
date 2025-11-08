@@ -2,7 +2,7 @@ import {
     advanceTradingDataParagraph1,
     advanceTradingDataParagraph2,
 } from "../data";
-import RootNavbar from "../utilities/RootNavbar";
+import AuthNavbar from '../utilities/AuthNavbar'
 import liveTrading from "../assets/advance.png";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const AdvanceTrading = () => {
     const navigate = useNavigate();
     return (
         <section className="container mx-auto px-2 py-2 h-full flex flex-col gap-y-8">
-            <RootNavbar />
+            <AuthNavbar />
             {/* header text */}
             <div className="flex flex-col py-4 gap-y-2 w-full md:w-[70%] lg:w-[60%]">
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white">

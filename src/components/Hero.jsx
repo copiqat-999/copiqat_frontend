@@ -1,12 +1,13 @@
 import heroImage from "../assets/Hero.jpg";
 import Navbar from "../utilities/Navbar";
 import { useNavigate } from "react-router-dom";
+import AuthNavbar from "../utilities/AuthNavbar";
 
 const Hero = () => {
   const navigate = useNavigate()
   return (
     <section className="container mx-auto flex flex-col min-h-[100vh] md:min-h-[80vh] items-center justify-start py-2 px-2 md:px-6 lg:px-8 ">
-      <Navbar />
+      <AuthNavbar />
 
       {/* Hero text section */}
       <div className="flex flex-col w-full gap-y-2 py-4 text-center items-center justify-center md:w-[80%] lg:w-[80%] ">
