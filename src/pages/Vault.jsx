@@ -64,11 +64,11 @@ const Vault = () => {
      * =============================== */
 
     const fetchTrades = async (url = filterUrl) => {
-        console.log("i am fetching the trades");
+        
         setLoading((prev) => ({ ...prev, trades: true }));
         try {
             const { data } = await api.get(url);
-            console.log(data);
+            
             setUserTrades(data);
         } catch (error) {
             console.error(error.response);
@@ -83,6 +83,7 @@ const Vault = () => {
         setLoading((prev) => ({ ...prev, dashboard: true }));
         try {
             const { data } = await api.get(ENDPOINTS.dashboard);
+            console.log(data)
             setDashboardData(data);
         } catch (error) {
             console.error(error.response);

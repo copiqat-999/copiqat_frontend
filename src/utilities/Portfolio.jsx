@@ -6,6 +6,7 @@ import { Spinner } from "flowbite-react";
 
 const Portfolio = ({ dashboardData }) => {
   const navigate = useNavigate();
+  
 
   
   return (
@@ -33,7 +34,7 @@ const Portfolio = ({ dashboardData }) => {
             </h1>
             <div className="lg:flex hidden items-center gap-x-1.5">
               <span className="text-sm text-lime-400 font-semibold flex items-center">
-                <IoTriangle /> +5.27%
+                <IoTriangle /> {`${dashboardData.today}%`}
               </span>
               <span className="text-white text-sm">today</span>
             </div>
