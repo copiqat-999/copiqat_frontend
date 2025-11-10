@@ -34,7 +34,7 @@ const Portfolio = ({ dashboardData }) => {
             </h1>
             <div className="lg:flex hidden items-center gap-x-1.5">
               <span className="text-sm text-lime-400 font-semibold flex items-center">
-                <IoTriangle /> {`${dashboardData.today}%`}
+                 <IoTriangle /> {dashboardData?.today ?? 0}%
               </span>
               <span className="text-white text-sm">today</span>
             </div>
