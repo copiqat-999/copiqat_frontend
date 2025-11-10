@@ -58,7 +58,7 @@ const Withdraw = () => {
                         </span>
                         <div className="w-full lg:w-[400px]">
                             <span className="text-sm font-normal text-white">
-                                You need a minimum of two active referrals to
+                                You need a minimum of two active referrals or 10 trades to
                                 unlock withdrawal and currently you have{" "}
                                 {referralCount}.
                             </span>

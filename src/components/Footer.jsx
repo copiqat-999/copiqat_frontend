@@ -15,8 +15,8 @@ const Footer = () => {
                 </div>
 
                 {/* Shortcuts */}
-                <div className="flex flex-row g py-6 items-start justify-around w-full md:justify-around">
-                    <div className="text-sm text-white font-normal flex flex-col gap-y-4 w-fit">
+                <div className="flex flex-row gap-6 py-6 items-start justify-around w-full md:justify-around">
+                    <div className="text-[12px] sm:text-sm text-white font-normal flex flex-col gap-y-4 w-fit">
                         <h3 className="text-xl font-semibold text-primary">
                             Legal
                         </h3>
@@ -30,7 +30,7 @@ const Footer = () => {
                             AML policy regulations (SEC)
                         </span>
                     </div>
-                    <div className="text-sm text-white font-normal flex flex-col gap-y-4 w-fit ">
+                    <div className="text-[12px] sm:text-sm text-white font-normal flex flex-col gap-y-4 w-fit ">
                         <h3 className="text-xl font-semibold text-primary">
                             Resources
                         </h3>
@@ -41,7 +41,7 @@ const Footer = () => {
                             Tutorials
                         </span>
                     </div>
-                    <div className="text-sm text-white font-normal flex flex-col gap-y-4 w-fit">
+                    <div className="text-[12px] sm:text-sm text-white font-normal flex flex-col gap-y-4 w-fit">
                         <h3 className="text-xl font-semibold text-primary">
                             Support
                         </h3>

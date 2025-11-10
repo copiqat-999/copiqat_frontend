@@ -19,6 +19,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { ImExit } from "react-icons/im";
 import { TbLockPassword } from "react-icons/tb";
+import { SiSemanticscholar } from "react-icons/si";
+
 
 export default function DropdownMenu() {
     const location = useLocation();
@@ -132,18 +134,15 @@ export default function DropdownMenu() {
                                 </Link>
                             </MenuItem>
                             <MenuItem>
-                                <Link
-                                    to="/category"
-                                    state={{ backgroundLocation: location }}
-                                >
+                                <Link to="/learn">
                                     <div
                                         className={`${
-                                            location.pathname === "/category" &&
+                                            location.pathname === "/learn" &&
                                             "text-primary"
                                         } flex w-full items-center gap-2`}
                                     >
-                                        <BiSolidCategoryAlt />
-                                        <li>Category</li>
+                                        <SiSemanticscholar />
+                                        <li>Learn</li>
                                     </div>
                                 </Link>
                             </MenuItem>
