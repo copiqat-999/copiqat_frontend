@@ -20,13 +20,13 @@ const Footer = () => {
                         <h3 className="text-xl font-semibold text-primary">
                             Legal
                         </h3>
-                        <span onClick={() => window.open("/terms.pdf", "_blank")} className="hover:text-primary cursor-pointer transition-colors duration-300">
+                        <span onClick={() => window.open("/Terms and Conditions.pdf", "_blank")} className="hover:text-primary cursor-pointer transition-colors duration-300">
                             Terms & Conditions
                         </span>
-                        <span onClick={() => window.open("/terms.pdf", "_blank")} className="hover:text-primary cursor-pointer transition-colors duration-300">
+                        <span onClick={() => window.open("/Privacy policy.pdf", "_blank")} className="hover:text-primary cursor-pointer transition-colors duration-300">
                             Privacy policy
                         </span>
-                        <span onClick={() => window.open("/terms.pdf", "_blank")} className="hover:text-primary cursor-pointer transition-colors duration-300">
+                        <span onClick={() => window.open("/SEC.pdf", "_blank")} className="hover:text-primary cursor-pointer transition-colors duration-300">
                             AML policy regulations (SEC)
                         </span>
                     </div>
