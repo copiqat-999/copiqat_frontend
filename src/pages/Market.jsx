@@ -212,7 +212,7 @@ const Market = () => {
 
             {/* modal */}
             {open && (
-                <div className="absolute inset-0 bg-black/25 backdrop-blur-sm h-full flex items-center justify-center px-8">
+                <div className="fixed inset-0 bg-black/25 backdrop-blur-sm h-full flex items-center justify-center px-8">
                     <div className="w-full sm:w-[70%] lg:w-[60%] xl:w-[50%] p-8 bg-deposit min-h-[400px] rounded-2xl flex flex-col gap-4 items-center justify-center text-center">
                         <HiBadgeCheck className="text-[100px] sm:text-[120px] lg:text-[150px]  text-primary" />
                         <h3 className="text-xl font-bold text-black">

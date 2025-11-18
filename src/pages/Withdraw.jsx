@@ -2,6 +2,7 @@ import { FaLock } from "react-icons/fa6";
 import { MdInfo } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaLink } from "react-icons/fa6";
 import api from "../utils/api";
 
 const Withdraw = () => {
@@ -10,6 +11,18 @@ const Withdraw = () => {
     const [dashboardData, setDashboardData] = useState(null);
 
     const maxReferrals = 2;
+
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = async (referralLink) => {
+        try {
+            await navigator.clipboard.writeText(referralLink);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000); // Reset copied after 2
+        } catch (err) {
+            console.error("Failed to copy!", err);
+        }
+    };
 
     // API Endpoints
     const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -35,8 +48,8 @@ const Withdraw = () => {
     }, []);
 
     // Safely calculate referral count and progress
-    const referralCount = dashboardData?.referral_count || 0;
-    const progress = Math.min((referralCount / maxReferrals) * 100, 100); // cap at 100%
+    const tradeCount = dashboardData?.active_trade_count || 0;
+    const progress = Math.min((tradeCount / maxReferrals) * 100, 100); // cap at 100%
 
     return (
         <section className="container mx-auto min-h-screen py-8 mt-4 flex flex-col items-center justify-center px-2">
@@ -58,9 +71,8 @@ const Withdraw = () => {
                         </span>
                         <div className="w-full lg:w-[400px]">
                             <span className="text-sm font-normal text-white">
-                                You need a minimum of two active referrals or 10 trades to
-                                unlock withdrawal and currently you have{" "}
-                                {referralCount}.
+                                You need to make at least two trades to be able
+                                to withdraw
                             </span>
                         </div>
                     </div>
@@ -68,15 +80,15 @@ const Withdraw = () => {
                     {/* Referral progress */}
                     <div className="w-full p-4 md:p-8 rounded-lg bg-whyCard flex flex-col gap-y-4">
                         <h2 className="md:text-xl text-lg font-semibold text-white py-1">
-                            Referral progress
+                            Your Trades
                         </h2>
                         <div className="w-full flex flex-col">
                             <div className="w-full flex justify-between">
                                 <h3 className="text-sm font-semibold text-white">
-                                    Active referral
+                                    Active trades
                                 </h3>
                                 <span className="text-sm font-semibold text-primary">
-                                    {referralCount}/{maxReferrals}
+                                    {tradeCount}/{maxReferrals}
                                 </span>
                             </div>
                             <div className="w-full rounded-xl bg-deposit/55 py-1">
@@ -91,9 +103,9 @@ const Withdraw = () => {
                     {/* info */}
                     <div className="w-full flex flex-col p-4 lg:p-8 rounded-lg gap-y-2 bg-primary/20 mt-2">
                         <div className="flex gap-x-2 items-center text-sm font-semibold text-primary">
-                            <MdInfo className="text-xl" />
-                            <span className="text-lg">
-                                How to get more referrals
+                            <MdInfo className="text-2xl" />
+                            <span className="text-sm sm:text-lg text-pretty">
+                                Refer family and friends and get instant withdrawals
                             </span>
                         </div>
                         <div className="px-3 md:px-6 w-full flex flex-col gap-y-2">
@@ -116,6 +128,25 @@ const Withdraw = () => {
                                     least one transaction
                                 </span>
                             </div>
+                            <button
+                                // href={dashboardData.referral_link}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleCopy(dashboardData.referral_link);
+                                }}
+                                className="flex gap-1 text-sm lg:text-lg font-semibold bg-primary rounded-2xl py-2 my-4 cursor-pointer w-full  text-black md:mt-8 justify-center  items-center"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {copied ? (
+                                    "Copied!"
+                                ) : (
+                                    <span className="flex items-center justify-center gap-2">
+                                        <FaLink className="text-2xl" /> Copy
+                                        referral link
+                                    </span>
+                                )}
+                            </button>
                         </div>
                     </div>
 
