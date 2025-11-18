@@ -45,10 +45,11 @@ const Withdraw = () => {
 
     useEffect(() => {
         fetchDashboard();
+        console.log(dashboardData)
     }, []);
 
     // Safely calculate referral count and progress
-    const tradeCount = dashboardData?.active_trade_count || 0;
+    const tradeCount = dashboardData?.active_trades_count || 0;
     const progress = Math.min((tradeCount / maxReferrals) * 100, 100); // cap at 100%
 
     return (
