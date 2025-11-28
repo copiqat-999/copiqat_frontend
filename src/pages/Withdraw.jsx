@@ -98,7 +98,7 @@ const Withdraw = () => {
                                     {tradeCount}/{maxReferrals}
                                 </span>
                             </div>
-                            <div className="w-full rounded-xl bg-deposit/55 py-1">
+                            <div className="w-full rounded-xl bg-deposit/55 ">
                                 <div
                                     style={{ width: `${progress}%` }}
                                     className="rounded-xl bg-primary py-1.5 transition-all duration-300"
