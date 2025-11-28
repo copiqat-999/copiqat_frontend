@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaLink } from "react-icons/fa6";
 import api from "../utils/api";
+import { HiBadgeCheck } from "react-icons/hi";
 
 const Withdraw = () => {
     const [selection, setSelection] = useState("Choose Network");
     const [loading, setLoading] = useState(false);
     const [dashboardData, setDashboardData] = useState(null);
+    const [open, setOpen] = useState(false);
 
-    const maxReferrals = 2;
+    const maxReferrals = 5;
 
     const [copied, setCopied] = useState(false);
 
@@ -45,15 +47,19 @@ const Withdraw = () => {
 
     useEffect(() => {
         fetchDashboard();
-        console.log(dashboardData)
+        // console.log(dashboardData)
     }, []);
 
     // Safely calculate referral count and progress
     const tradeCount = dashboardData?.active_trades_count || 0;
     const progress = Math.min((tradeCount / maxReferrals) * 100, 100); // cap at 100%
+    const isExceeded = tradeCount >= maxReferrals;
 
     return (
-        <section className="container mx-auto min-h-screen py-8 mt-4 flex flex-col items-center justify-center px-2">
+        <section
+            onClick={() => setOpen(false)}
+            className="container mx-auto min-h-screen py-8 mt-4 flex flex-col items-center justify-center px-2 relative"
+        >
             <div className="w-full lg:w-[60%] flex flex-col py-2">
                 {/* main */}
                 <div className="flex flex-col gap-y-4">
@@ -72,7 +78,7 @@ const Withdraw = () => {
                         </span>
                         <div className="w-full lg:w-[400px]">
                             <span className="text-sm font-normal text-white">
-                                You need to make at least two trades to be able
+                                You need to make at least five trades to be able
                                 to withdraw
                             </span>
                         </div>
@@ -106,7 +112,8 @@ const Withdraw = () => {
                         <div className="flex gap-x-2 items-center text-sm font-semibold text-primary">
                             <MdInfo className="text-2xl" />
                             <span className="text-sm sm:text-lg text-pretty">
-                                Refer family and friends and get instant withdrawals
+                                Refer family and friends and get instant
+                                withdrawals
                             </span>
                         </div>
                         <div className="px-3 md:px-6 w-full flex flex-col gap-y-2">
@@ -205,14 +212,33 @@ const Withdraw = () => {
                     {/* button */}
                     <div className="w-full flex py-4 mb-8">
                         <button
-                            disabled
-                            className="w-full py-3 rounded-lg bg-primary/65 text-lg font-bold text-primary disabled:cursor-not-allowed"
+                            disabled={!isExceeded}
+                            onClick={() => setOpen(true)}
+                            className="w-full py-3 rounded-lg bg-primary text-sm font-bold text-black disabled:cursor-not-allowed disabled:bg-primary/50 hover:disabled:bg-primary/50 hover:scale-105 transition-all duration-200"
                         >
-                            Withdrawal Locked
+                            {isExceeded
+                                ? "Withdraw Funds"
+                                : "You need more trades to withdraw"}
                         </button>
                     </div>
                 </div>
             </div>
+
+            {/* modal */}
+            {open && (
+                <div className="fixed inset-0 bg-black/25 backdrop-blur-sm h-full flex items-center justify-center px-8">
+                    <div className="w-full sm:w-[70%] lg:w-[60%] xl:w-[50%] p-8 bg-deposit min-h-[400px] rounded-2xl flex flex-col gap-4 items-center justify-center text-center">
+                        <HiBadgeCheck className="text-[100px] sm:text-[120px] lg:text-[150px]  text-primary" />
+                        <h3 className="text-xl font-bold text-black">
+                            Your Withdrawal Request is Being Processed
+                        </h3>
+                        <span className="text-pretty text-black text-sm font-normal">
+                            This may take up to 72 hours to reflect in your
+                            account. Thank you for your patience.
+                        </span>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
